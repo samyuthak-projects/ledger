@@ -30,28 +30,35 @@ def home():
             reader = csv.reader(data)
 
             for i, row in enumerate(reader):
+                if len(row) < 3:
+                    continue  # Skip rows that don't have enough columns
+                
                 if i == 0:
                     row.append("Category")  # Add header
                 else:
                     category = categorize_transaction(row[1])  # Description is in the second column
                     row.append(category)
 
-                    amount = float(row[2])  # Amount is in the third column
-                    if category in category_totals:
-                        category_totals[category] += amount
-                    else:
-                        category_totals[category] = amount
+                    amount = float(row[2])
+
+                    # Only consider expenses (negative amounts), not income
+                    if amount < 0:
+                        if category in category_totals:
+                            category_totals[category] += abs(amount)
+                        else:
+                            category_totals[category] = abs(amount)
 
                 transactions.append(row)
 
+            # Generate insights
             if category_totals:
-                total_spent = sum(abs(v) for v in category_totals.values())
+                total_spent = sum(category_totals.values())
 
                 for category, amount in category_totals.items():
-                    percentage = (abs(amount) / total_spent) * 100
-                    insights.append(f"You spent {percentage:.2f}% on {category}.")
+                    percentage = (amount / total_spent) * 100
+                    insights.append(f"{percentage:.1f}% of your spending is on {category}")
 
-                top_category = max(category_totals, key=lambda x: abs(category_totals[x]))
+                top_category = max(category_totals, key=category_totals.get)
                 insights.append(f"Your highest spending is on {top_category}")
 
 
