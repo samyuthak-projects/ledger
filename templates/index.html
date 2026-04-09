@@ -28,5 +28,14 @@
   </table>
 {% endif %}
 
+{% if insights %}
+  <h2>Insights</h2>
+  <ul>
+    {% for insight in insights %}
+      <li>{{ insight }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 </body>
 </html>
