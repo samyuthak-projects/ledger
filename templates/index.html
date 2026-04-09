@@ -8,6 +8,25 @@
 
 <h1>Ledger</h1>
 <p>Understand your spending. Take control of your money.</p>
+<p>Upload your transactions to analyse your spending.</p>
+
+<form method="POST" enctype="multipart/form-data">
+  <input type="file" name="file">
+  <button type="submit">Upload</button>
+</form>
+
+{% if transactions %}
+  <h2>Transactions</h2>
+  <table border="1">
+    {% for row in transactions %}
+      <tr>
+        {% for item in row %}
+          <td>{{ item }}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+{% endif %}
 
 </body>
 </html>
