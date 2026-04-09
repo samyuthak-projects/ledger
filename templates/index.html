@@ -6,36 +6,38 @@
 </head>
 <body>
 
-<h1>Ledger</h1>
-<p>Understand your spending. Take control of your money.</p>
-<p>Upload your transactions to analyse your spending.</p>
+<div class = "container">    
+    <h1>Ledger</h1>
+    <p class = "subtitle">Understand your spending. Take control of your money.</p>
 
-<form method="POST" enctype="multipart/form-data">
-  <input type="file" name="file">
-  <button type="submit">Upload</button>
-</form>
+    <form method="POST" enctype="multipart/form-data" class = "upload-box">
+        <input type="file" name="file">
+        <button type="submit">Upload</button>
+    </form>
 
-{% if transactions %}
-  <h2>Transactions</h2>
-  <table border="1">
-    {% for row in transactions %}
-      <tr>
-        {% for item in row %}
-          <td>{{ item }}</td>
-        {% endfor %}
-      </tr>
-    {% endfor %}
-  </table>
-{% endif %}
+    {% if transactions %}
+        <h2>Transactions</h2>
+        <table border="1">
+            {% for row in transactions %}
+                <tr>
+                    {% for item in row %}
+                        <td>{{ item }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 
-{% if insights %}
-  <h2>Insights</h2>
-  <ul>
-    {% for insight in insights %}
-      <li>{{ insight }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+    {% if insights %}
+        <h2>Insights</h2>
+        <ul class = "insights">
+            {% for insight in insights %}
+                <li>{{ insight }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</div>
 
 </body>
 </html>
