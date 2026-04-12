@@ -3,18 +3,24 @@ import csv
 
 app = Flask(__name__)
 
+category_keywords = {
+    "Food": ["mcdonald", "restaurant", "starbucks"],
+    "Transport": ["bus", "train", "uber"],
+    "Shopping": ["amazon", "primark"],
+    "Bills": ["electric", "bill"],
+    "Entertainment": ["netflix"],
+    "Income": ["salary"]
+}
+
 def categorize_transaction(description):
     description = description.lower()
-    if "mcdonald" in description or "restaurant" in description:
-        return "Food"
-    elif "bus" in description or "train" in description:
-        return "Transport"
-    elif "amazon" in description or "shop" in description:
-        return "Shopping"
-    elif "salary" in description:
-        return "Income"
-    else:
-        return "Other"
+
+    for category, keywords in category_keywords.items():
+        for word in keywords:
+            if word in description:
+                return category
+
+    return "Other"
 
 @app.route("/", methods=["GET", "POST"])
 def home():
