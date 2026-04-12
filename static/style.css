@@ -77,3 +77,10 @@ tr:first-child {
   padding: 12px;
   border-radius: 8px;
 }
+
+/* CHART */
+
+.chart-container {
+  max-width: 500px;
+  margin: 30px auto;
+}

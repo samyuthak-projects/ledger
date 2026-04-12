@@ -62,7 +62,7 @@ def home():
                 insights.append(f"Your highest spending is on {top_category}")
 
 
-    return render_template("index.html", transactions=transactions, insights=insights)
+    return render_template("index.html", transactions=transactions, insights=insights, category_totals=category_totals)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -3,6 +3,7 @@
 <head>
   <title>Ledger</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -37,7 +38,48 @@
         </ul>
     {% endif %}
 
+    {% if category_totals %}
+        <h2>Spending Breakdown</h2>
+        <div class = "chart-container">    
+            <canvas id="spendingChart"></canvas>
+        </div>
+    {% endif %}
+
 </div>
+
+<script>
+  const data = {{ category_totals | tojson }};
+
+  const labels = Object.keys(data);
+  const values = Object.values(data);
+
+  const ctx = document.getElementById('spendingChart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: [
+            "#60a5fa",
+            "#34d399",
+            "#fbbf24",
+            "#f87171",
+            "#a78bfa"
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
